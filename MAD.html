@@ -1,0 +1,1075 @@
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(16, 185, 129, 0.14), transparent 34%),
+    radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.14), transparent 28%),
+    #020617;
+  color: #e2e8f0;
+}
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 2px 5px;
+  border-radius: 6px;
+  color: #f8fafc;
+}
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 8px 0;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  line-height: 1.65;
+  color: #e2e8f0;
+}
+.diagram-wrap {
+  margin: 12px 0;
+  overflow-x: auto;
+  border-radius: 18px;
+}
+.diagram-wrap svg {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+}
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+</style>
+
+<div class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+    <div class="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+      <div class="border-b border-white/10 bg-gradient-to-r from-emerald-500/10 via-sky-500/10 to-transparent px-4 py-5 sm:px-6 lg:px-8">
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-4xl">CS-552 Mobile App Development — Complete Q&amp;A Guide</h1>
+        <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-300 sm:text-base">All questions answered in exam-ready format · Tap any question to expand · Optimized for mobile and desktop study sessions.</p>
+      </div>
+
+      <div class="px-4 py-5 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-center shadow-lg shadow-black/10">
+            <div class="text-3xl font-semibold text-emerald-300" id="totalQ">27</div>
+            <div class="mt-1 text-xs font-medium uppercase tracking-[0.24em] text-slate-400">Questions</div>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-center shadow-lg shadow-black/10">
+            <div class="text-3xl font-semibold text-sky-300" id="openedQ">0</div>
+            <div class="mt-1 text-xs font-medium uppercase tracking-[0.24em] text-slate-400">Reviewed</div>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-center shadow-lg shadow-black/10">
+            <div class="text-3xl font-semibold text-rose-300" id="hotQ">12</div>
+            <div class="mt-1 text-xs font-medium uppercase tracking-[0.24em] text-slate-400">Most Likely</div>
+          </div>
+        </div>
+
+        <div class="mt-5 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-sky-500 transition-all duration-300" id="prog" style="width:0%"></div>
+        </div>
+
+        <div class="mt-5 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]" id="filterBar">
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1.5 text-xs font-semibold text-emerald-100 transition hover:bg-emerald-500/25" data-filter="all">All Topics</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="architecture">Architecture</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="lifecycle">Lifecycle</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="components">Components</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="ui">UI &amp; Layouts</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="intents">Intents</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="threads">Threads</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="storage">Storage</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="phonegap">PhoneGap</span>
+          <span class="inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white" data-filter="programs">Programs</span>
+        </div>
+
+        <div class="mt-6" id="qaContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+{
+  id:1, filter:'architecture', marks:5, hot:true,
+  q:'Explain Android Architecture with diagram (all 5 layers)',
+  def:'Android Architecture is a layered software stack that allows Android apps to communicate with the hardware. It has 5 layers stacked from bottom to top.',
+  diagram:`<svg viewBox="0 0 540 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:540px;display:block">
+  <rect x="10" y="10" width="520" height="48" rx="6" fill="#1D9E75"/><text x="270" y="30" text-anchor="middle" fill="#E1F5EE" font-size="13" font-weight="500" font-family="sans-serif">Layer 5: Applications</text><text x="270" y="48" text-anchor="middle" fill="#9FE1CB" font-size="11" font-family="sans-serif">Camera · Contacts · WhatsApp · Chrome · Calculator</text>
+  <rect x="10" y="66" width="520" height="48" rx="6" fill="#185FA5"/><text x="270" y="86" text-anchor="middle" fill="#E6F1FB" font-size="13" font-weight="500" font-family="sans-serif">Layer 4: Application Framework (API Layer)</text><text x="270" y="104" text-anchor="middle" fill="#B5D4F4" font-size="11" font-family="sans-serif">Activity Manager · Content Provider · Notification Manager · Location Manager</text>
+  <rect x="10" y="122" width="255" height="48" rx="6" fill="#533AB7"/><text x="137" y="142" text-anchor="middle" fill="#EEEDFE" font-size="12" font-weight="500" font-family="sans-serif">Android Runtime (ART)</text><text x="137" y="160" text-anchor="middle" fill="#AFA9EC" font-size="11" font-family="sans-serif">AOT Compilation · Replaced Dalvik</text>
+  <rect x="273" y="122" width="257" height="48" rx="6" fill="#533AB7"/><text x="401" y="142" text-anchor="middle" fill="#EEEDFE" font-size="12" font-weight="500" font-family="sans-serif">Native Libraries (C/C++)</text><text x="401" y="160" text-anchor="middle" fill="#AFA9EC" font-size="11" font-family="sans-serif">SQLite · WebKit · OpenGL · SSL</text>
+  <rect x="10" y="178" width="520" height="48" rx="6" fill="#854F0B"/><text x="270" y="198" text-anchor="middle" fill="#FAEEDA" font-size="13" font-weight="500" font-family="sans-serif">Layer 2: Hardware Abstraction Layer (HAL)</text><text x="270" y="216" text-anchor="middle" fill="#FAC775" font-size="11" font-family="sans-serif">Bridge between Hardware and Android Framework</text>
+  <rect x="10" y="234" width="520" height="56" rx="6" fill="#A32D2D"/><text x="270" y="256" text-anchor="middle" fill="#FCEBEB" font-size="13" font-weight="500" font-family="sans-serif">Layer 1: Linux Kernel (Foundation)</text><text x="270" y="274" text-anchor="middle" fill="#F7C1C1" font-size="11" font-family="sans-serif">Memory · Process · Device Drivers · Security · Power Management</text>
+</svg>`,
+  points:[
+    '<strong>Linux Kernel</strong> — Bottom layer. Manages memory, processes, device drivers (camera, bluetooth, wifi), security, and power management.',
+    '<strong>HAL (Hardware Abstraction Layer)</strong> — Acts as a bridge between hardware and the Android framework. Hides hardware complexity.',
+    '<strong>Android Runtime (ART)</strong> — Executes Android apps. Replaced Dalvik VM from Android 5.0. Uses AOT (Ahead-Of-Time) compilation.',
+    '<strong>Native Libraries</strong> — Written in C/C++. Examples: SQLite (database), WebKit (browser), OpenGL (graphics), SSL (security).',
+    '<strong>Application Framework</strong> — Provides APIs for developers. Includes Activity Manager, Content Provider, Notification Manager, Location Manager.',
+    '<strong>Applications</strong> — Top layer. Includes all installed apps like Camera, WhatsApp, Chrome, Contacts.'
+  ],
+  conc:'Android architecture provides a secure, modular, and hardware-independent environment for building mobile apps.',
+},
+{
+  id:2, filter:'lifecycle', marks:5, hot:true,
+  q:'Explain Android Activity Lifecycle with all callback methods',
+  def:'Activity Lifecycle defines the different states an Activity goes through from the moment it is created to when it is destroyed. Android system manages these states automatically.',
+  diagram:`<svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg" style="width:200px;display:block;margin:0 auto">
+  <defs><marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#1D9E75"/></marker></defs>
+  <rect x="75" y="10" width="150" height="36" rx="6" fill="#1D9E75"/><text x="150" y="33" text-anchor="middle" fill="#E1F5EE" font-size="12" font-weight="500" font-family="sans-serif">onCreate()</text>
+  <line x1="150" y1="46" x2="150" y2="66" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="75" y="68" width="150" height="36" rx="6" fill="#185FA5"/><text x="150" y="91" text-anchor="middle" fill="#E6F1FB" font-size="12" font-weight="500" font-family="sans-serif">onStart()</text>
+  <line x1="150" y1="104" x2="150" y2="124" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="75" y="126" width="150" height="36" rx="6" fill="#185FA5"/><text x="150" y="149" text-anchor="middle" fill="#E6F1FB" font-size="12" font-weight="500" font-family="sans-serif">onResume()</text>
+  <line x1="150" y1="162" x2="150" y2="182" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="65" y="184" width="170" height="36" rx="6" fill="#3B6D11"/><text x="150" y="207" text-anchor="middle" fill="#EAF3DE" font-size="12" font-weight="500" font-family="sans-serif">Running (Active)</text>
+  <line x1="150" y1="220" x2="150" y2="240" stroke="#E24B4A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="75" y="242" width="150" height="36" rx="6" fill="#854F0B"/><text x="150" y="265" text-anchor="middle" fill="#FAEEDA" font-size="12" font-weight="500" font-family="sans-serif">onPause()</text>
+  <line x1="150" y1="278" x2="150" y2="298" stroke="#E24B4A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="75" y="300" width="150" height="36" rx="6" fill="#854F0B"/><text x="150" y="323" text-anchor="middle" fill="#FAEEDA" font-size="12" font-weight="500" font-family="sans-serif">onStop()</text>
+  <line x1="150" y1="336" x2="150" y2="356" stroke="#E24B4A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="75" y="358" width="150" height="36" rx="6" fill="#A32D2D"/><text x="150" y="381" text-anchor="middle" fill="#FCEBEB" font-size="12" font-weight="500" font-family="sans-serif">onDestroy()</text>
+  <rect x="20" y="300" width="45" height="36" rx="4" fill="#533AB7"/><text x="42" y="323" text-anchor="middle" fill="#EEEDFE" font-size="10" font-family="sans-serif">Restart</text>
+  <path d="M75 318 Q55 318 55 264 Q55 126 75 144" fill="none" stroke="#533AB7" stroke-width="1.5" marker-end="url(#arr)" stroke-dasharray="4,2"/>
+  <text x="14" y="268" font-size="9" fill="#AFA9EC" font-family="sans-serif">onRestart()</text>
+</svg>`,
+  points:[
+    '<code>onCreate()</code> — Called when activity is first created. You set up the UI here (setContentView). Called only ONCE.',
+    '<code>onStart()</code> — Activity becomes visible to the user but not yet interactive.',
+    '<code>onResume()</code> — Activity is in foreground and user can interact. This is the "running" state.',
+    '<code>onPause()</code> — Called when another activity comes to foreground. Save your data here. Activity is still visible.',
+    '<code>onStop()</code> — Activity is completely hidden from user. Release heavy resources here.',
+    '<code>onRestart()</code> — Called when activity comes back from stopped state (user pressed back and returned).',
+    '<code>onDestroy()</code> — Called when activity is being permanently destroyed. Clean up everything here.'
+  ],
+  conc:'Lifecycle methods help Android manage app resources efficiently, prevent memory leaks, and save user data.',
+},
+{
+  id:3, filter:'components', marks:5, hot:true,
+  q:'What is Android Service? Explain all types with lifecycle diagram',
+  def:'A Service is an Android component that runs in the background without any user interface (no UI/screen). It is used for long-running operations.',
+  diagram:`<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block">
+  <defs><marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#888780"/></marker></defs>
+  <rect x="10" y="40" width="100" height="40" rx="6" fill="#1D9E75"/><text x="60" y="65" text-anchor="middle" fill="#E1F5EE" font-size="12" font-family="sans-serif">onCreate()</text>
+  <line x1="110" y1="60" x2="135" y2="60" stroke="#888780" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="137" y="40" width="120" height="40" rx="6" fill="#185FA5"/><text x="197" y="65" text-anchor="middle" fill="#E6F1FB" font-size="12" font-family="sans-serif">onStartCommand()</text>
+  <line x1="257" y1="60" x2="282" y2="60" stroke="#888780" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="284" y="40" width="90" height="40" rx="6" fill="#3B6D11"/><text x="329" y="65" text-anchor="middle" fill="#EAF3DE" font-size="12" font-family="sans-serif">Running</text>
+  <line x1="374" y1="60" x2="399" y2="60" stroke="#888780" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="401" y="40" width="100" height="40" rx="6" fill="#A32D2D"/><text x="451" y="65" text-anchor="middle" fill="#FCEBEB" font-size="12" font-family="sans-serif">onDestroy()</text>
+  <text x="270" y="108" text-anchor="middle" fill="#888780" font-size="11" font-family="sans-serif">Started Service Lifecycle</text>
+</svg>`,
+  points:[
+    '<strong>Started Service</strong> — Starts with <code>startService()</code>. Runs until <code>stopSelf()</code> is called. Example: downloading a file in background.',
+    '<strong>Bound Service</strong> — Starts with <code>bindService()</code>. Allows 2-way communication with activity. Stops when all clients unbind.',
+    '<strong>Foreground Service</strong> — Shows a persistent notification to the user. Example: Music Player app showing "Now Playing" in notification bar.',
+    '<strong>Intent Service</strong> — Handles tasks one at a time in a worker thread. Auto-stops when task finishes. (Deprecated in Android 11)',
+    '<strong>Key Methods</strong> — <code>onCreate()</code>, <code>onStartCommand()</code>, <code>onBind()</code>, <code>onDestroy()</code>'
+  ],
+  conc:'Services help keep the UI responsive by moving heavy tasks to the background.',
+},
+{
+  id:4, filter:'components', marks:5, hot:true,
+  q:'What is Broadcast Receiver? Explain static and dynamic registration with example',
+  def:'Broadcast Receiver is an Android component that listens to system-wide or app-wide broadcast messages. It reacts to events even when the app is not running.',
+  points:[
+    '<strong>System Broadcasts Examples</strong> — BATTERY_LOW, BOOT_COMPLETED, SMS_RECEIVED, CONNECTIVITY_CHANGED, AIRPLANE_MODE',
+    '<strong>Static Registration</strong> — Registered in AndroidManifest.xml file. Receives broadcasts even when app is not running.',
+    '<strong>Dynamic Registration</strong> — Registered in Java code using <code>registerReceiver()</code>. Only active while app is running.',
+    '<strong>onReceive()</strong> — The main method that runs when a broadcast is received. Keep it SHORT (< 10 seconds).'
+  ],
+  code:`// Static Registration (Manifest):
+<receiver android:name=".MyReceiver">
+  <intent-filter>
+    <action android:name="android.intent.action.BOOT_COMPLETED"/>
+  </intent-filter>
+</receiver>
+
+// Receiver Class (Java):
+public class MyReceiver extends BroadcastReceiver {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Toast.makeText(context, "Boot Complete!", Toast.LENGTH_SHORT).show();
+  }
+}
+
+// Dynamic Registration (Java):
+IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+registerReceiver(myReceiver, filter);`,
+  conc:'Broadcast Receiver enables event-based communication with low resource usage.',
+},
+{
+  id:5, filter:'components', marks:4, hot:false,
+  q:'What is Content Provider? Explain with CRUD operations',
+  def:'Content Provider is an Android component used to share structured data between different applications. It acts as a data access layer with a standard interface.',
+  points:[
+    '<strong>URI Format</strong> — Data is accessed using URI. Format: <code>content://authority/path/id</code>. Example: <code>content://contacts/people/1</code>',
+    '<strong>CRUD Operations</strong> — query() to read, insert() to add, update() to modify, delete() to remove data.',
+    '<strong>ContentResolver</strong> — Used by other apps to access a Content Provider.',
+    '<strong>Examples</strong> — Contacts app, Media Store, Calendar — all use Content Providers.',
+    '<strong>Built on SQLite</strong> — Usually backed by SQLite database internally.'
+  ],
+  code:`// Accessing Contacts Content Provider:
+ContentResolver cr = getContentResolver();
+Cursor cursor = cr.query(
+  ContactsContract.Contacts.CONTENT_URI,
+  null, null, null, null);
+while(cursor.moveToNext()) {
+  String name = cursor.getString(
+    cursor.getColumnIndex("display_name"));
+  Log.d("Contact", name);
+}`,
+  conc:'Content Provider enables secure and standard data sharing between applications.',
+},
+{
+  id:6, filter:'intents', marks:5, hot:true,
+  q:'Explain types of Intent in Android — Explicit vs Implicit with code examples',
+  def:'An Intent is a messaging object in Android used to request an action from another component. It is used to start Activities, Services, or send Broadcasts.',
+  diagram:`<svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block">
+  <rect x="10" y="10" width="240" height="130" rx="8" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="130" y="32" text-anchor="middle" fill="#0C447C" font-size="13" font-weight="500" font-family="sans-serif">Explicit Intent</text>
+  <text x="130" y="52" text-anchor="middle" fill="#185FA5" font-size="11" font-family="sans-serif">Target component is specified</text>
+  <text x="130" y="74" text-anchor="middle" fill="#378ADD" font-size="11" font-family="sans-serif">new Intent(this, SecondActivity.class)</text>
+  <text x="130" y="96" text-anchor="middle" fill="#185FA5" font-size="11" font-family="sans-serif">Used within same app</text>
+  <text x="130" y="130" text-anchor="middle" fill="#0C447C" font-size="11" font-family="sans-serif">Example: Go to Settings screen</text>
+  <rect x="270" y="10" width="240" height="130" rx="8" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="390" y="32" text-anchor="middle" fill="#085041" font-size="13" font-weight="500" font-family="sans-serif">Implicit Intent</text>
+  <text x="390" y="52" text-anchor="middle" fill="#0F6E56" font-size="11" font-family="sans-serif">System finds suitable app</text>
+  <text x="390" y="74" text-anchor="middle" fill="#1D9E75" font-size="11" font-family="sans-serif">new Intent(Intent.ACTION_VIEW)</text>
+  <text x="390" y="96" text-anchor="middle" fill="#0F6E56" font-size="11" font-family="sans-serif">Used across different apps</text>
+  <text x="390" y="130" text-anchor="middle" fill="#085041" font-size="11" font-family="sans-serif">Example: Open URL in browser</text>
+</svg>`,
+  points:[
+    '<strong>Explicit Intent</strong> — You specify EXACTLY which activity/component to start. Used inside the same app.',
+    '<strong>Implicit Intent</strong> — You specify only the ACTION. Android system finds the best app to handle it.',
+    '<strong>Intent Extras</strong> — You can pass data with intents using <code>putExtra("key", value)</code>',
+    '<strong>startActivityForResult()</strong> — Start activity and get a result back when it finishes.'
+  ],
+  code:`// Explicit Intent — Open a specific activity:
+Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+intent.putExtra("username", "Aditya");
+startActivity(intent);
+
+// Implicit Intent — Open a URL:
+Intent intent = new Intent(Intent.ACTION_VIEW);
+intent.setData(Uri.parse("https://google.com"));
+startActivity(intent);
+
+// Implicit Intent — Make a phone call:
+Intent intent = new Intent(Intent.ACTION_DIAL);
+intent.setData(Uri.parse("tel:9876543210"));
+startActivity(intent);`,
+  conc:'Intents are the communication backbone of Android, connecting components and apps.',
+},
+{
+  id:7, filter:'ui', marks:5, hot:true,
+  q:'Discuss different types of Layouts in Android with examples',
+  def:'A Layout (ViewGroup) is a container that holds and arranges UI components (Views) on the screen. Android provides 6 main types of layouts.',
+  points:[
+    '<strong>LinearLayout</strong> — Arranges views in a single row (horizontal) or column (vertical). Uses <code>android:orientation="vertical"</code>. Simple and easy to use.',
+    '<strong>RelativeLayout</strong> — Positions views relative to each other or the parent. Uses attributes like <code>layout_below</code>, <code>layout_toRightOf</code>.',
+    '<strong>ConstraintLayout</strong> — Modern and most flexible layout. Connect views using constraints. Best for complex UIs without nesting.',
+    '<strong>FrameLayout</strong> — Stacks views on top of each other. Last child is drawn on top. Used for fragments and image overlays.',
+    '<strong>GridLayout</strong> — Arranges views in rows and columns (grid). Good for galleries or calculator layouts.',
+    '<strong>TableLayout</strong> — Like an HTML table. Uses <code>TableRow</code> for each row. Good for displaying structured data.'
+  ],
+  code:`<!-- LinearLayout Example: -->
+<LinearLayout
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <TextView android:text="Name:" .../>
+  <EditText android:hint="Enter your name" .../>
+  <Button android:text="Submit" .../>
+</LinearLayout>`,
+  conc:'Choose the right layout based on complexity: LinearLayout for simple UIs, ConstraintLayout for complex UIs.',
+},
+{
+  id:8, filter:'ui', marks:5, hot:true,
+  q:'Create Android app to display subject list using Spinner and Buttons (XML + Java)',
+  def:'Spinner is a dropdown widget that allows the user to select one item from a list. It uses an Adapter to connect data to the UI.',
+  points:[
+    '<strong>Spinner</strong> — Dropdown list for selecting one option. Defined in XML, filled with data using ArrayAdapter in Java.',
+    '<strong>ArrayAdapter</strong> — Bridge between data (array/list) and the Spinner UI.',
+    '<strong>OnItemSelectedListener</strong> — Detects which item user selected.',
+    '<strong>setDropDownViewResource()</strong> — Sets the layout for dropdown items.'
+  ],
+  code:`<!-- activity_main.xml -->
+<LinearLayout ... android:orientation="vertical" android:padding="16dp">
+  <TextView android:text="Select Subject:" android:textSize="16sp" .../>
+  <Spinner android:id="@+id/spinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <Button android:id="@+id/btnShow"
+    android:text="Show Selected"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <TextView android:id="@+id/tvResult" android:textSize="18sp" .../>
+</LinearLayout>
+
+// MainActivity.java
+public class MainActivity extends AppCompatActivity {
+  Spinner spinner; Button btnShow; TextView tvResult;
+  String[] subjects = {"Android","Java","Python","DBMS","Networks"};
+
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    spinner = findViewById(R.id.spinner);
+    btnShow = findViewById(R.id.btnShow);
+    tvResult = findViewById(R.id.tvResult);
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+      android.R.layout.simple_spinner_item, subjects);
+    adapter.setDropDownViewResource(
+      android.R.layout.simple_spinner_dropdown_item);
+    spinner.setAdapter(adapter);
+
+    btnShow.setOnClickListener(v -> {
+      String selected = spinner.getSelectedItem().toString();
+      tvResult.setText("You selected: " + selected);
+      Toast.makeText(this, selected, Toast.LENGTH_SHORT).show();
+    });
+  }
+}`,
+  conc:'Spinner is memory-efficient as it shows only one item at a time and loads more only when opened.',
+},
+{
+  id:9, filter:'threads', marks:5, hot:true,
+  q:'What is Thread? Explain AsyncTask class with all 4 methods',
+  def:'A Thread is a lightweight unit of execution. In Android, the Main Thread handles all UI. Long operations on Main Thread cause ANR (Application Not Responding) error. We use background threads for heavy work.',
+  diagram:`<svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block">
+  <defs><marker id="a3" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#888"/></marker></defs>
+  <rect x="10" y="20" width="110" height="50" rx="6" fill="#1D9E75"/><text x="65" y="42" text-anchor="middle" fill="#E1F5EE" font-size="11" font-family="sans-serif" font-weight="500">onPreExecute()</text><text x="65" y="58" text-anchor="middle" fill="#9FE1CB" font-size="10" font-family="sans-serif">UI Thread</text>
+  <line x1="120" y1="45" x2="145" y2="45" stroke="#888" stroke-width="1.5" marker-end="url(#a3)"/>
+  <rect x="147" y="20" width="120" height="50" rx="6" fill="#185FA5"/><text x="207" y="42" text-anchor="middle" fill="#E6F1FB" font-size="11" font-family="sans-serif" font-weight="500">doInBackground()</text><text x="207" y="58" text-anchor="middle" fill="#B5D4F4" font-size="10" font-family="sans-serif">Background Thread</text>
+  <line x1="267" y1="45" x2="292" y2="45" stroke="#888" stroke-width="1.5" marker-end="url(#a3)"/>
+  <rect x="294" y="20" width="120" height="50" rx="6" fill="#854F0B"/><text x="354" y="42" text-anchor="middle" fill="#FAEEDA" font-size="11" font-family="sans-serif" font-weight="500">onProgressUpdate()</text><text x="354" y="58" text-anchor="middle" fill="#FAC775" font-size="10" font-family="sans-serif">UI Thread</text>
+  <line x1="414" y1="45" x2="439" y2="45" stroke="#888" stroke-width="1.5" marker-end="url(#a3)"/>
+  <rect x="441" y="20" width="70" height="50" rx="6" fill="#A32D2D"/><text x="476" y="42" text-anchor="middle" fill="#FCEBEB" font-size="11" font-family="sans-serif" font-weight="500">onPost</text><text x="476" y="55" text-anchor="middle" fill="#FCEBEB" font-size="11" font-family="sans-serif" font-weight="500">Execute()</text>
+</svg>`,
+  points:[
+    '<strong>Main Thread (UI Thread)</strong> — Handles all UI updates. NEVER do heavy work here. Max block = 5 seconds or ANR occurs.',
+    '<strong>Worker Thread</strong> — Background thread for heavy tasks like network calls, file reading, database operations.',
+    '<strong>onPreExecute()</strong> — Runs on UI Thread BEFORE background task. Use to show ProgressBar.',
+    '<strong>doInBackground()</strong> — Runs on Background Thread. Do all heavy work here. Call <code>publishProgress()</code> to update.',
+    '<strong>onProgressUpdate()</strong> — Runs on UI Thread. Update progress bar or UI with progress values.',
+    '<strong>onPostExecute()</strong> — Runs on UI Thread AFTER task finishes. Show result to user.',
+    '<strong>Note</strong> — AsyncTask is deprecated in API 30. Use Executors or Coroutines in modern Android.'
+  ],
+  code:`private class DownloadTask extends AsyncTask<String, Integer, String> {
+  @Override
+  protected void onPreExecute() {
+    progressBar.setVisibility(View.VISIBLE); // show loader
+  }
+
+  @Override
+  protected String doInBackground(String... urls) {
+    for(int i = 0; i <= 100; i += 20) {
+      publishProgress(i); // send progress to UI
+      Thread.sleep(500);
+    }
+    return "Download Complete!";
+  }
+
+  @Override
+  protected void onProgressUpdate(Integer... progress) {
+    progressBar.setProgress(progress[0]); // update progress bar
+  }
+
+  @Override
+  protected void onPostExecute(String result) {
+    progressBar.setVisibility(View.GONE);
+    Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+  }
+}
+// How to run:
+new DownloadTask().execute("https://example.com/file");`,
+  conc:'AsyncTask simplifies background-to-UI thread communication but is deprecated. runOnUiThread() is a simpler modern alternative.',
+},
+{
+  id:10, filter:'threads', marks:4, hot:false,
+  q:'Explain runOnUiThread — purpose, usage, and code example',
+  def:'runOnUiThread() is a method that allows a background thread to safely update UI components. Since only the Main Thread can update UI, this method posts a runnable to the UI thread.',
+  points:[
+    '<strong>Problem</strong> — Background threads CANNOT directly update UI. Doing so causes crash: "Only the original thread that created a view hierarchy can touch its views."',
+    '<strong>Solution</strong> — Use <code>runOnUiThread()</code> to post UI updates from background thread.',
+    '<strong>Handler</strong> — Alternative to runOnUiThread, uses Handler and Looper for communication.',
+    '<strong>Simpler than AsyncTask</strong> — Good for quick one-time UI updates from threads.'
+  ],
+  code:`Thread thread = new Thread(new Runnable() {
+  @Override
+  public void run() {
+    // Do heavy work in background
+    String result = fetchDataFromServer();
+
+    // Update UI safely from background thread:
+    runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        textView.setText(result);
+        progressBar.setVisibility(View.GONE);
+      }
+    });
+  }
+});
+thread.start();`,
+  conc:'runOnUiThread is the simplest way to update UI from a background thread without needing AsyncTask.',
+},
+{
+  id:11, filter:'storage', marks:5, hot:true,
+  q:'Explain Android Notification with complete code example',
+  def:'A Notification is a message displayed to the user outside the app\'s UI, appearing in the status bar and notification drawer. It alerts users about events even when the app is in background.',
+  points:[
+    '<strong>Notification Channel</strong> — Required for Android 8.0 (API 26) and above. Groups notifications by category.',
+    '<strong>NotificationCompat.Builder</strong> — Used to build the notification with title, text, icon.',
+    '<strong>setSmallIcon()</strong> — Required. Shows icon in status bar.',
+    '<strong>setContentTitle() & setContentText()</strong> — Sets the notification title and message.',
+    '<strong>PendingIntent</strong> — Opens an activity when user taps the notification.',
+    '<strong>NotificationManagerCompat.notify()</strong> — Displays the notification. Each notification needs unique ID.'
+  ],
+  code:`// Step 1: Create Notification Channel (Android 8.0+):
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+  NotificationChannel channel = new NotificationChannel(
+    "my_channel",            // channel ID
+    "My App Notifications",  // channel name
+    NotificationManager.IMPORTANCE_DEFAULT);
+  channel.setDescription("Notifications for my app");
+  NotificationManager manager = getSystemService(NotificationManager.class);
+  manager.createNotificationChannel(channel);
+}
+
+// Step 2: Create PendingIntent (what happens on tap):
+Intent intent = new Intent(this, MainActivity.class);
+PendingIntent pendingIntent = PendingIntent.getActivity(
+  this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+// Step 3: Build Notification:
+NotificationCompat.Builder builder =
+  new NotificationCompat.Builder(this, "my_channel")
+    .setSmallIcon(R.drawable.ic_notification)
+    .setContentTitle("New Message!")
+    .setContentText("You have 1 new message from Aditya")
+    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+    .setContentIntent(pendingIntent)
+    .setAutoCancel(true);  // dismiss on tap
+
+// Step 4: Show Notification:
+NotificationManagerCompat notificationManager =
+  NotificationManagerCompat.from(this);
+notificationManager.notify(1, builder.build()); // 1 = unique ID`,
+  conc:'Notifications keep users informed and re-engage them with the app even when it is in the background.',
+},
+{
+  id:12, filter:'programs', marks:5, hot:true,
+  q:'Write Java Android program for Registration Form with Validation (XML + Java)',
+  def:'A Registration Form collects user information. Validation ensures the data entered is correct and complete before processing.',
+  points:[
+    '<strong>Fields required</strong> — Name, Email, Phone, Password',
+    '<strong>Validation Rules</strong> — Name: not empty | Email: valid format | Phone: exactly 10 digits | Password: minimum 6 characters',
+    '<strong>Patterns.EMAIL_ADDRESS</strong> — Built-in Android class to validate email format',
+    '<strong>setError()</strong> — Shows error message below an EditText field'
+  ],
+  code:`<!-- activity_register.xml -->
+<LinearLayout ... android:orientation="vertical" android:padding="16dp">
+  <EditText android:id="@+id/etName"
+    android:hint="Full Name" android:inputType="textPersonName"
+    android:layout_width="match_parent" android:layout_height="wrap_content"/>
+  <EditText android:id="@+id/etEmail"
+    android:hint="Email Address" android:inputType="textEmailAddress"
+    android:layout_width="match_parent" android:layout_height="wrap_content"/>
+  <EditText android:id="@+id/etPhone"
+    android:hint="Phone Number" android:inputType="phone"
+    android:layout_width="match_parent" android:layout_height="wrap_content"/>
+  <EditText android:id="@+id/etPassword"
+    android:hint="Password" android:inputType="textPassword"
+    android:layout_width="match_parent" android:layout_height="wrap_content"/>
+  <Button android:id="@+id/btnRegister" android:text="Register"
+    android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>
+
+// RegisterActivity.java
+public class RegisterActivity extends AppCompatActivity {
+  EditText etName, etEmail, etPhone, etPassword;
+  Button btnRegister;
+
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_register);
+
+    etName = findViewById(R.id.etName);
+    etEmail = findViewById(R.id.etEmail);
+    etPhone = findViewById(R.id.etPhone);
+    etPassword = findViewById(R.id.etPassword);
+    btnRegister = findViewById(R.id.btnRegister);
+
+    btnRegister.setOnClickListener(v -> validate());
+  }
+
+  private void validate() {
+    String name = etName.getText().toString().trim();
+    String email = etEmail.getText().toString().trim();
+    String phone = etPhone.getText().toString().trim();
+    String pass = etPassword.getText().toString().trim();
+
+    if(name.isEmpty()) {
+      etName.setError("Name is required"); return;
+    }
+    if(email.isEmpty() ||
+       !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+      etEmail.setError("Enter a valid email"); return;
+    }
+    if(phone.length() != 10) {
+      etPhone.setError("Phone must be 10 digits"); return;
+    }
+    if(pass.length() < 6) {
+      etPassword.setError("Password must be 6+ characters"); return;
+    }
+    Toast.makeText(this, "Registered Successfully!", Toast.LENGTH_LONG).show();
+  }
+}`,
+  conc:'Validation prevents bad data and improves security and user experience.',
+},
+{
+  id:13, filter:'storage', marks:4, hot:false,
+  q:'Explain SQLite in Android — data types, creation, and CRUD operations',
+  def:'SQLite is a lightweight, embedded relational database that comes built-in with Android. It does not need a separate server and stores data in a local file on the device.',
+  points:[
+    '<strong>SQLite Data Types</strong> — NULL (no value), INTEGER (whole numbers), REAL (decimal numbers), TEXT (strings), BLOB (binary data like images)',
+    '<strong>SQLiteOpenHelper</strong> — Helper class to create and manage the database. Override <code>onCreate()</code> and <code>onUpgrade()</code>.',
+    '<strong>Advantages</strong> — No server needed, lightweight, works offline, fast for small datasets.',
+    '<strong>CRUD</strong> — Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE)'
+  ],
+  code:`public class DBHelper extends SQLiteOpenHelper {
+  private static final String DB_NAME = "StudentDB";
+  private static final int DB_VERSION = 1;
+
+  public DBHelper(Context context) {
+    super(context, DB_NAME, null, DB_VERSION);
+  }
+
+  @Override
+  public void onCreate(SQLiteDatabase db) {
+    // Create table:
+    db.execSQL("CREATE TABLE students (" +
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+      "name TEXT, " +
+      "marks REAL)");
+  }
+
+  @Override
+  public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
+    db.execSQL("DROP TABLE IF EXISTS students");
+    onCreate(db);
+  }
+
+  // INSERT:
+  public void addStudent(String name, double marks) {
+    SQLiteDatabase db = getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("name", name);
+    values.put("marks", marks);
+    db.insert("students", null, values);
+  }
+
+  // SELECT:
+  public Cursor getAllStudents() {
+    SQLiteDatabase db = getReadableDatabase();
+    return db.rawQuery("SELECT * FROM students", null);
+  }
+}`,
+  conc:'SQLite is the go-to choice for local structured data storage in Android apps.',
+},
+{
+  id:14, filter:'storage', marks:3, hot:false,
+  q:'What is JSON Parsing? Explain with code example',
+  def:'JSON (JavaScript Object Notation) is a lightweight data format used to exchange data between a server and an app. JSON Parsing is the process of converting JSON text into Java objects that can be used in code.',
+  points:[
+    '<strong>JSONObject</strong> — Represents a JSON object (key-value pairs enclosed in { })',
+    '<strong>JSONArray</strong> — Represents a JSON array (list of values enclosed in [ ])',
+    '<strong>getString(), getInt()</strong> — Methods to extract values from JSON by key name',
+    '<strong>Use case</strong> — When your app fetches data from a REST API (server), it comes as JSON'
+  ],
+  code:`// Sample JSON received from server:
+// {"name":"Alice", "age":22, "subjects":["Math","Science","Android"]}
+
+try {
+  String jsonString = "{\\"name\\":\\"Alice\\",\\"age\\":22}";
+  JSONObject jsonObject = new JSONObject(jsonString);
+
+  // Extract values:
+  String name = jsonObject.getString("name");
+  int age = jsonObject.getInt("age");
+
+  // Extract array:
+  JSONArray subjects = jsonObject.getJSONArray("subjects");
+  for(int i = 0; i < subjects.length(); i++) {
+    Log.d("Subject", subjects.getString(i));
+  }
+
+  textView.setText("Name: " + name + ", Age: " + age);
+
+} catch(JSONException e) {
+  e.printStackTrace();
+}`,
+  conc:'JSON parsing is essential for any app that communicates with a web server or REST API.',
+},
+{
+  id:15, filter:'phonegap', marks:5, hot:true,
+  q:'Write short note on PhoneGap / Apache Cordova — features, plugins, and how it works',
+  def:'PhoneGap (now Apache Cordova) is an open-source framework for building hybrid mobile apps using HTML, CSS, and JavaScript. The web app is wrapped inside a native WebView container and can access device hardware via plugins.',
+  diagram:`<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block">
+  <rect x="10" y="20" width="140" height="80" rx="6" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="80" y="50" text-anchor="middle" fill="#0C447C" font-size="12" font-weight="500" font-family="sans-serif">Web Code</text>
+  <text x="80" y="68" text-anchor="middle" fill="#378ADD" font-size="11" font-family="sans-serif">HTML / CSS / JS</text>
+  <text x="80" y="86" text-anchor="middle" fill="#185FA5" font-size="10" font-family="sans-serif">www/ folder</text>
+  <line x1="150" y1="60" x2="175" y2="60" stroke="#888" stroke-width="1.5" marker-end="url(#a3)"/>
+  <rect x="177" y="20" width="160" height="80" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="257" y="50" text-anchor="middle" fill="#633806" font-size="12" font-weight="500" font-family="sans-serif">PhoneGap/Cordova</text>
+  <text x="257" y="68" text-anchor="middle" fill="#854F0B" font-size="11" font-family="sans-serif">WebView + Plugins</text>
+  <text x="257" y="86" text-anchor="middle" fill="#BA7517" font-size="10" font-family="sans-serif">JS Bridge to Native</text>
+  <line x1="337" y1="60" x2="362" y2="60" stroke="#888" stroke-width="1.5" marker-end="url(#a3)"/>
+  <rect x="364" y="20" width="140" height="80" rx="6" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="434" y="50" text-anchor="middle" fill="#085041" font-size="12" font-weight="500" font-family="sans-serif">Native Device</text>
+  <text x="434" y="68" text-anchor="middle" fill="#0F6E56" font-size="11" font-family="sans-serif">Camera, GPS, Contacts</text>
+  <text x="434" y="86" text-anchor="middle" fill="#1D9E75" font-size="10" font-family="sans-serif">Android / iOS / Windows</text>
+</svg>`,
+  points:[
+    '<strong>Cross-platform</strong> — Write code once in HTML/CSS/JS, deploy to Android, iOS, Windows.',
+    '<strong>WebView</strong> — Your HTML/JS code runs inside a native WebView container.',
+    '<strong>Plugins</strong> — Camera Plugin, GPS Plugin, File Plugin, Contacts Plugin, Accelerometer Plugin, InAppBrowser Plugin.',
+    '<strong>Steps to create app</strong> — Install Node.js → Install Cordova → Create project → Add platform → Add plugins → Build and run.',
+    '<strong>Advantage</strong> — Cheaper, faster to develop, single codebase.',
+    '<strong>Disadvantage</strong> — Slower than native, UI does not feel 100% native.'
+  ],
+  code:`// Install Cordova:
+npm install -g cordova
+
+// Create new project:
+cordova create MyApp com.example.myapp MyApp
+
+// Add platform:
+cordova platform add android
+
+// Add camera plugin:
+cordova plugin add cordova-plugin-camera
+
+// Build and run:
+cordova run android
+
+// Access camera in JavaScript:
+navigator.camera.getPicture(
+  function(imageURI) { 
+    document.getElementById('img').src = imageURI; 
+  },
+  function(error) { alert("Error: " + error); },
+  { quality: 50, destinationType: Camera.DestinationType.FILE_URI }
+);`,
+  conc:'PhoneGap is ideal for simple apps that need cross-platform support at lower cost, but native is preferred for performance-critical apps.',
+},
+{
+  id:16, filter:'architecture', marks:3, hot:false,
+  q:'What is Dalvik Virtual Machine (DVM)? Explain briefly',
+  def:'Dalvik Virtual Machine (DVM) is a register-based virtual machine developed by Google specifically for Android. It was designed to run on mobile devices with limited memory and CPU.',
+  points:[
+    '<strong>Register-based</strong> — Unlike Java JVM (stack-based), Dalvik is register-based which is faster on mobile hardware.',
+    '<strong>.dex files</strong> — Dalvik executes .dex (Dalvik Executable) files converted from Java .class files.',
+    '<strong>One VM per app</strong> — Each Android app runs in its own Dalvik VM instance for security and isolation.',
+    '<strong>JIT compilation</strong> — Uses Just-In-Time compilation (compiles at runtime).',
+    '<strong>Replaced by ART</strong> — From Android 5.0 (Lollipop), ART (Android Runtime) replaced Dalvik. ART uses AOT (Ahead-Of-Time) which is faster.'
+  ],
+  conc:'DVM was specifically optimized for mobile — low memory, low CPU. ART replaced it in 2014 for better performance.',
+},
+{
+  id:17, filter:'ui', marks:3, hot:false,
+  q:'Explain Toast in Android with example and code',
+  def:'Toast is a small popup message that appears briefly on the screen and disappears automatically. It provides simple feedback to the user without blocking the UI.',
+  points:[
+    '<strong>Non-blocking</strong> — User can still interact with the app while toast is visible.',
+    '<strong>Auto-disappear</strong> — No button needed, disappears on its own.',
+    '<strong>LENGTH_SHORT</strong> — Shows for about 2 seconds.',
+    '<strong>LENGTH_LONG</strong> — Shows for about 3.5 seconds.',
+    '<strong>Cannot be tapped</strong> — Toast is display-only, no click interaction.'
+  ],
+  code:`// Basic Toast:
+Toast.makeText(this, "File saved!", Toast.LENGTH_SHORT).show();
+
+// Long Toast:
+Toast.makeText(this, "Data uploaded successfully!", Toast.LENGTH_LONG).show();
+
+// Custom position Toast:
+Toast toast = Toast.makeText(this, "Top message", Toast.LENGTH_SHORT);
+toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+toast.show();`,
+  conc:'Toast is the simplest way to show quick feedback messages to the user.',
+},
+{
+  id:18, filter:'architecture', marks:3, hot:false,
+  q:'What is Android Manifest File? Explain its contents with example',
+  def:'AndroidManifest.xml is the central configuration file for every Android application. It must be present in the root directory of the project. It provides essential information about the app to the Android system.',
+  points:[
+    '<strong>Package name</strong> — Unique identifier for the app (e.g., com.example.myapp).',
+    '<strong>Components declared</strong> — Lists all Activities, Services, Broadcast Receivers, Content Providers.',
+    '<strong>Permissions</strong> — Declares what device features the app needs (INTERNET, CAMERA, LOCATION).',
+    '<strong>SDK Versions</strong> — minSdkVersion (minimum Android version) and targetSdkVersion.',
+    '<strong>App icon & label</strong> — References the app name and icon shown on home screen.',
+    '<strong>Intent Filters</strong> — Specifies which intents each component can handle.'
+  ],
+  code:`<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.myapp">
+
+  <!-- Permissions needed: -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.CAMERA"/>
+
+  <application
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name">
+
+    <!-- Main Activity (app entry point): -->
+    <activity android:name=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Other components: -->
+    <service android:name=".MyService"/>
+    <receiver android:name=".MyReceiver"/>
+  </application>
+</manifest>`,
+  conc:'Manifest file is the identity card of your app — without it, Android cannot install or run your app.',
+},
+{
+  id:19, filter:'components', marks:4, hot:false,
+  q:'Describe Android Fragment lifecycle with all callback methods',
+  def:'A Fragment is a reusable portion of UI that can be embedded inside an Activity. Think of it as a "sub-activity" — it has its own lifecycle but depends on the Activity.',
+  points:[
+    '<code>onAttach()</code> — Fragment is attached to Activity.',
+    '<code>onCreate()</code> — Fragment is created. Initialize non-UI components here.',
+    '<code>onCreateView()</code> — Fragment\'s layout is inflated here. Return the view.',
+    '<code>onActivityCreated()</code> — Activity\'s onCreate() is complete.',
+    '<code>onStart()</code> — Fragment becomes visible.',
+    '<code>onResume()</code> — Fragment is interactive.',
+    '<code>onPause()</code> — Fragment loses focus.',
+    '<code>onStop()</code> — Fragment is hidden.',
+    '<code>onDestroyView()</code> — Fragment\'s view is destroyed.',
+    '<code>onDetach()</code> — Fragment is detached from Activity.',
+    '<strong>Use case</strong> — Tablets showing two-pane layout, bottom navigation tabs, ViewPager slides.'
+  ],
+  conc:'Fragments make UI more flexible and reusable, especially for tablets and multi-pane layouts.',
+},
+{
+  id:20, filter:'ui', marks:3, hot:false,
+  q:'Explain Event Handling in Android — all methods',
+  def:'Event Handling is the mechanism by which Android apps respond to user interactions like clicks, long presses, touches, and text changes.',
+  points:[
+    '<strong>Method 1 — Anonymous Inner Class</strong> — Define listener inline when setting it. Most common method.',
+    '<strong>Method 2 — Lambda (Java 8+)</strong> — Shorter syntax for simple click handlers.',
+    '<strong>Method 3 — Activity implements Listener</strong> — Activity implements OnClickListener interface.',
+    '<strong>Method 4 — XML onClick attribute</strong> — Define method name in XML, implement in Java.',
+    '<strong>Common Listeners</strong> — OnClickListener (tap), OnLongClickListener (long press), OnTouchListener (raw touch), TextWatcher (text changes).'
+  ],
+  code:`// Method 1: Anonymous Inner Class
+button.setOnClickListener(new View.OnClickListener() {
+  @Override
+  public void onClick(View v) {
+    Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+  }
+});
+
+// Method 2: Lambda (Modern, shorter)
+button.setOnClickListener(v -> {
+  Toast.makeText(this, "Clicked!", Toast.LENGTH_SHORT).show();
+});
+
+// Method 3: XML attribute
+// In XML: android:onClick="handleClick"
+// In Java:
+public void handleClick(View v) {
+  Toast.makeText(this, "Clicked!", Toast.LENGTH_SHORT).show();
+}`,
+  conc:'Event handling makes apps interactive and responsive to user actions.',
+},
+{
+  id:21, filter:'ui', marks:3, hot:false,
+  q:'List Android UI Controls with description (6 controls)',
+  def:'Android provides many built-in UI controls (Views) for building user interfaces. Each control serves a specific purpose.',
+  points:[
+    '<strong>TextView</strong> — Displays non-editable text on screen. Like a label.',
+    '<strong>EditText</strong> — Text input field where user can type. Can be text, email, phone, password.',
+    '<strong>Button</strong> — Clickable button that triggers an action when tapped.',
+    '<strong>ImageView</strong> — Displays images and drawables.',
+    '<strong>CheckBox</strong> — Toggle control for yes/no selection. Multiple can be selected.',
+    '<strong>RadioButton</strong> — Single selection from a group (use inside RadioGroup).',
+    '<strong>Spinner</strong> — Dropdown list for selecting one item.',
+    '<strong>ProgressBar</strong> — Shows progress of a task (circular or horizontal).',
+    '<strong>SeekBar</strong> — Slider for selecting a value in a range (like volume control).'
+  ],
+  conc:'Android UI controls follow Material Design guidelines for a consistent look and feel.',
+},
+{
+  id:22, filter:'ui', marks:3, hot:false,
+  q:'Explain Adapters in Android — types with description',
+  def:'An Adapter acts as a bridge between a data source (array, database) and a UI widget (ListView, Spinner, GridView). It converts data into View items that can be displayed.',
+  points:[
+    '<strong>ArrayAdapter</strong> — Works with simple arrays or List objects. Used with Spinner, ListView.',
+    '<strong>BaseAdapter</strong> — Most flexible adapter. Extend this class for fully custom adapters.',
+    '<strong>CursorAdapter</strong> — Works with database Cursor (SQLite results).',
+    '<strong>SimpleAdapter</strong> — Maps data from a List of Maps to XML views.',
+    '<strong>RecyclerView.Adapter</strong> — Modern, efficient replacement for ListView. Mandatory for RecyclerView. Best for large lists.'
+  ],
+  code:`// ArrayAdapter example:
+String[] fruits = {"Apple","Banana","Mango","Orange"};
+ArrayAdapter<String> adapter = new ArrayAdapter<>(
+  this,
+  android.R.layout.simple_list_item_1, // built-in layout
+  fruits);
+listView.setAdapter(adapter);`,
+  conc:'Adapters are the connection between your data and the screen — without them, lists cannot be displayed.',
+},
+{
+  id:23, filter:'phonegap', marks:3, hot:false,
+  q:'What are the types of Mobile Applications? Compare Native, Web, Hybrid',
+  def:'Mobile apps are classified into 3 types based on how they are built, how they run, and what features they can access.',
+  points:[
+    '<strong>Native App</strong> — Built specifically for one platform using platform-specific language (Java/Kotlin for Android, Swift for iOS). Best performance and full device access. Expensive to build for multiple platforms.',
+    '<strong>Web App</strong> — Runs in mobile browser. Built with HTML/CSS/JavaScript. Works on all platforms but cannot access most device hardware. Needs internet connection.',
+    '<strong>Hybrid App</strong> — Web code wrapped inside a native container (PhoneGap/Cordova). Cross-platform, cheaper. Slower than native but can access device features via plugins.'
+  ],
+  conc:'For maximum performance use Native. For budget cross-platform apps, use Hybrid. For simple browser-based tools, use Web Apps.',
+},
+{
+  id:24, filter:'storage', marks:3, hot:false,
+  q:'Write short note on Storage types in Android',
+  def:'Android provides multiple ways to store data depending on the type, size, and privacy requirements of the data.',
+  points:[
+    '<strong>SharedPreferences</strong> — Stores small key-value pairs as XML. Used for user settings, login state. Persists after app restart.',
+    '<strong>Internal Storage</strong> — Private file storage inside app\'s sandbox. Deleted when app is uninstalled.',
+    '<strong>External Storage</strong> — Public storage on SD card. For large files like photos and videos.',
+    '<strong>SQLite Database</strong> — Full local relational database. For structured data with complex queries.',
+    '<strong>Network/Cloud Storage</strong> — Store data on remote server via REST API. Shared across devices.',
+    '<strong>Room Database</strong> — Modern, recommended abstraction over SQLite with annotations.'
+  ],
+  conc:'Choose storage based on data size and privacy: SharedPreferences for small settings, SQLite for structured data, cloud for shared data.',
+},
+{
+  id:25, filter:'components', marks:4, hot:false,
+  q:'Explain Android Gestures and Touch Events',
+  def:'Android provides built-in gesture detection for complex touch interactions beyond simple clicks. GestureDetector class is used to detect standard gestures.',
+  points:[
+    '<code>onDown()</code> — Called when user first touches the screen.',
+    '<code>onSingleTapUp()</code> — Single tap detected and finger lifted.',
+    '<code>onDoubleTap()</code> — Two quick taps detected.',
+    '<code>onLongPress()</code> — Finger held down without moving for a long time.',
+    '<code>onFling()</code> — Quick swipe/flick movement (like swiping a card).',
+    '<code>onScroll()</code> — Slow scroll movement while finger is touching screen.',
+    '<code>onShowPress()</code> — User has pressed screen, before movement begins.'
+  ],
+  code:`GestureDetector gd = new GestureDetector(this,
+  new GestureDetector.SimpleOnGestureListener() {
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2,
+                           float velX, float velY) {
+      Toast.makeText(MainActivity.this, "Swiped!", Toast.LENGTH_SHORT).show();
+      return true;
+    }
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+      Toast.makeText(MainActivity.this, "Double Tap!", Toast.LENGTH_SHORT).show();
+      return true;
+    }
+  });
+
+// Override onTouchEvent:
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+  return gd.onTouchEvent(event);
+}`,
+  conc:'Gesture detection makes apps more intuitive by supporting swipe, pinch, and other natural touch interactions.',
+},
+{
+  id:26, filter:'ui', marks:3, hot:false,
+  q:'Explain Alert Dialog in Android with example',
+  def:'AlertDialog is a popup dialog box that displays a message with action buttons. It requires user interaction before they can continue. Used for confirmations, warnings, and choices.',
+  points:[
+    '<strong>AlertDialog.Builder</strong> — Used to construct the dialog step by step.',
+    '<strong>setTitle()</strong> — Dialog heading.',
+    '<strong>setMessage()</strong> — Main content text.',
+    '<strong>setPositiveButton()</strong> — "Yes" or "OK" button.',
+    '<strong>setNegativeButton()</strong> — "No" or "Cancel" button.',
+    '<strong>setNeutralButton()</strong> — Third option button.'
+  ],
+  code:`AlertDialog.Builder builder = new AlertDialog.Builder(this);
+builder.setTitle("Confirm Delete");
+builder.setMessage("Are you sure you want to delete this file?");
+builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+builder.setPositiveButton("Delete", (dialog, which) -> {
+  // Delete the file
+  Toast.makeText(this, "File Deleted!", Toast.LENGTH_SHORT).show();
+});
+builder.setNegativeButton("Cancel", (dialog, which) -> {
+  dialog.dismiss(); // close dialog
+});
+
+AlertDialog dialog = builder.create();
+dialog.show();`,
+  conc:'AlertDialog is used whenever you need user confirmation before performing a destructive or important action.',
+},
+{
+  id:27, filter:'programs', marks:4, hot:false,
+  q:'Write Android program to print addition of two numbers',
+  def:'A simple Android app with two EditText fields and a Button. When button is clicked, it reads the two numbers, adds them, and displays the result.',
+  code:`<!-- activity_main.xml -->
+<LinearLayout ... android:orientation="vertical" android:padding="20dp">
+  <EditText android:id="@+id/et1"
+    android:hint="Enter first number"
+    android:inputType="number"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <EditText android:id="@+id/et2"
+    android:hint="Enter second number"
+    android:inputType="number"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <Button android:id="@+id/btnAdd"
+    android:text="Add Numbers"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <TextView android:id="@+id/tvResult"
+    android:text="Result will appear here"
+    android:textSize="18sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</LinearLayout>
+
+// MainActivity.java
+public class MainActivity extends AppCompatActivity {
+  EditText et1, et2;
+  Button btnAdd;
+  TextView tvResult;
+
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    et1 = findViewById(R.id.et1);
+    et2 = findViewById(R.id.et2);
+    btnAdd = findViewById(R.id.btnAdd);
+    tvResult = findViewById(R.id.tvResult);
+
+    btnAdd.setOnClickListener(v -> {
+      int num1 = Integer.parseInt(et1.getText().toString());
+      int num2 = Integer.parseInt(et2.getText().toString());
+      int sum = num1 + num2;
+      tvResult.setText("Sum = " + sum);
+    });
+  }
+}`,
+  conc:'This demonstrates basic event handling, UI binding, and string-to-integer conversion in Android.',
+},
+];
+
+let openedSet = new Set();
+let currentFilter = 'all';
+
+function badgeClasses(filter) {
+  return filter === currentFilter
+    ? 'inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1.5 text-xs font-semibold text-emerald-100 transition hover:bg-emerald-500/25'
+    : 'inline-flex cursor-pointer items-center whitespace-nowrap rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-emerald-400/30 hover:bg-white/5 hover:text-white';
+}
+
+function markClasses(marks) {
+  const map = {
+    2: 'bg-sky-500/15 text-sky-200 ring-1 ring-inset ring-sky-400/20',
+    3: 'bg-emerald-500/15 text-emerald-200 ring-1 ring-inset ring-emerald-400/20',
+    4: 'bg-amber-500/15 text-amber-200 ring-1 ring-inset ring-amber-400/20',
+    5: 'bg-rose-500/15 text-rose-200 ring-1 ring-inset ring-rose-400/20',
+  };
+  return map[marks] || 'bg-slate-500/15 text-slate-200 ring-1 ring-inset ring-slate-400/20';
+}
+
+function render() {
+  const container = document.getElementById('qaContainer');
+  const filtered = currentFilter === 'all' ? questions : questions.filter(q => q.filter === currentFilter);
+  if(filtered.length === 0) {
+    container.innerHTML = '<div class="rounded-3xl border border-dashed border-white/10 bg-slate-950/60 py-16 text-center text-slate-400">No questions in this category.</div>';
+    return;
+  }
+  container.innerHTML = filtered.map(q => {
+    const isOpen = openedSet.has(q.id);
+    return `<div class="group mb-4 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 shadow-lg shadow-black/10 transition duration-200 hover:-translate-y-0.5 hover:border-white/20" id="card-${q.id}">
+      <div class="flex cursor-pointer items-start justify-between gap-4 px-4 py-4 sm:px-5" onclick="toggle(${q.id})">
+        <div class="min-w-0 flex-1">
+          <div class="mb-2 flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold ${markClasses(q.marks)}">${q.marks} marks</span>
+            ${q.hot ? '<span class="inline-flex items-center rounded-full bg-rose-500/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-rose-200 ring-1 ring-inset ring-rose-400/20">Most Likely</span>' : ''}
+          </div>
+          <div class="text-sm font-medium leading-6 text-slate-100 sm:text-[15px]">${q.q}</div>
+        </div>
+        <i class="ti ti-chevron-down chevron text-xl text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}" aria-hidden="true"></i>
+      </div>
+      <div class="border-t border-white/10 px-4 pb-5 pt-4 sm:px-5 ${isOpen ? 'block' : 'hidden'}" id="body-${q.id}">
+        <div class="mb-4 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-sm leading-7 text-slate-100"><p><strong>Definition:</strong> ${q.def}</p></div>
+        ${q.diagram ? `<div class="diagram-wrap rounded-2xl border border-white/10 bg-white/5 p-3">${q.diagram}</div>` : ''}
+        ${q.points && q.points.length ? `<div class="mb-4"><h4 class="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Key Points</h4><ul class="space-y-2 pl-5 text-sm leading-7 text-slate-200">${q.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>` : ''}
+        ${q.code ? `<div class="mb-4"><h4 class="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Code Example</h4><div class="code-block">${escHtml(q.code)}</div></div>` : ''}
+        ${q.conc ? `<div class="rounded-2xl border border-teal-400/20 bg-teal-500/10 p-4 text-sm leading-7 text-teal-50"><p><strong>Conclusion / Exam Tip:</strong> ${q.conc}</p></div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggle(id) {
+  const body = document.getElementById('body-'+id);
+  const chev = document.querySelector('#card-'+id+' .chevron');
+  if(!body || !chev) return;
+  if(body.classList.contains('hidden')) {
+    body.classList.remove('hidden');
+    body.classList.add('block');
+    chev.classList.add('rotate-180');
+  } else {
+    body.classList.remove('block');
+    body.classList.add('hidden');
+    chev.classList.remove('rotate-180');
+    if(!openedSet.has(id)) {
+      openedSet.add(id);
+      const opened = document.getElementById('openedQ');
+      opened.textContent = openedSet.size;
+      const prog = document.getElementById('prog');
+      prog.style.width = Math.round((openedSet.size / questions.length) * 100) + '%';
+    }
+  }
+}
+
+document.getElementById('filterBar').addEventListener('click', function(e) {
+  const badge = e.target.closest('[data-filter]');
+  if(!badge) return;
+  currentFilter = badge.dataset.filter;
+  document.querySelectorAll('[data-filter]').forEach(b => {
+    b.className = badgeClasses(b.dataset.filter);
+  });
+  render();
+});
+
+render();
+</script>
